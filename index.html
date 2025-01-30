@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Send Good Vibes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Basic reset and styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f3f3f3;
+      color: #333;
+      padding: 20px;
+      position: relative;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Top-right welcome message */
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Center content wrapper */
+    .center-content {
+      max-width: 400px;
+      margin: 100px auto 0 auto;
+      text-align: center;
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Main text (top) */
+    .main-heading {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 10px; /* Reduced from 20px */
+    }
+
+    /* Progress bar container */
+    .progress-container {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Progress bar styling */
+    progress {
+      width: 100%;
+      margin: 10px 0;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 30px;
+      border-radius: 15px;
+      overflow: hidden; /* ensures no corners stick out */
+    }
+    progress::-webkit-progress-bar {
+      background-color: #eee;
+    }
+    progress::-webkit-progress-value {
+      background-color: #4caf50;
+    }
+
+    /* Centered label on the progress bar */
+    .progress-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    /* Sub-heading (bottom) */
+    .sub-heading {
+      font-size: 1.8rem; /* Match the top heading */
+      font-weight: 600;
+      margin-top: 5px;   /* Reduced spacing */
+    }
+
+    /* Statistics section */
+    .stats {
+      margin-top: 30px;
+      text-align: left;
+    }
+    .stats h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .stats p {
+      font-size: 1rem;
+      margin: 5px 0;
+      font-weight: 500;
+    }
+
+    /* Button styling */
+    button {
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+    button:hover {
+      background: #1e88e5;
+    }
+
+    /* Loading overlay (prettier) */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    .loading-overlay-text {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    /* Spinner */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #fff;
+      border-top: 4px solid #2196f3;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Heart message */
+    .heart-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255,255,255,0.9);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      text-align: center;
+    }
+    .heart-message p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    /* Animated heart */
+    .heart {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: relative;
+      transform: rotate(45deg);
+      animation: beat 1s infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -25px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: -25px;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: rotate(45deg) scale(1);
+      }
+      50% {
+        transform: rotate(45deg) scale(1.2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top-right welcome message -->
+  <div class="top-right">Welcome, Ines!</div>
+
+  <!-- Main centered content -->
+  <div class="center-content">
+    <!-- Main heading above the progress bar -->
+    <div class="main-heading">Raj's flu situation is</div>
+
+    <!-- Progress bar container -->
+    <div class="progress-container">
+      <progress id="fluProgress" value="73" max="100"></progress>
+      <span class="progress-label" id="progressLabel">73%</span>
+    </div>
+
+    <!-- Sub-heading below the progress bar -->
+    <div class="sub-heading">gone!</div>
+
+    <!-- Statistics section (unchanged) -->
+    <div class="stats">
+      <h2>Statistics</h2>
+      <p>Average Sleep Quality: 65%</p>
+      <p>Ginger Teas Consumed Today: 3</p>
+    </div>
+
+    <!-- Button -->
+    <button onclick="sendGoodVibes()">Click to send good vibes</button>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-overlay-text">Sending good vibes...</div>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Heart message -->
+  <div id="heartMessage" class="heart-message">
+    <div class="heart"></div>
+    <p>good vibes sent! thank you for your contribution!</p>
+  </div>
+
+  <script>
+    function sendGoodVibes() {
+      // Show the loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+
+      // After 1.5 seconds, hide loading and show the heart message
+      setTimeout(function() {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        document.getElementById('heartMessage').style.display = 'flex';
+
+        // Hide the heart message after 3 seconds, returning to the main page
+        setTimeout(function() {
+          document.getElementById('heartMessage').style.display = 'none';
+        }, 3000);
+
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>
